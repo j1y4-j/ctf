@@ -21,17 +21,27 @@ int verify(char *input)
 
 void reveal()
 {
+    FILE *fp;
+    int data[7];
+    int key = 7;
 
-    int key = 3;
+    fp = fopen("flag.enc", "r");
 
-    int hidden[] = {109, 102, 112, 96, 98, 101, 102};
+    if (fp == NULL)
+    {
+        printf("Error opening file\n");
+        return;
+    }
+
+    for (int i = 0; i < 7; i++)
+        fscanf(fp, "%d", &data[i]);
+
+    fclose(fp);
 
     printf("Location unlocked: ");
 
     for (int i = 0; i < 7; i++)
-    {
-        printf("%c", hidden[i] ^ key);
-    }
+        printf("%c", data[i] ^ key);
 
     printf("\n");
 }
@@ -42,7 +52,11 @@ int main()
     char buffer[50];
 
     printf("Enter access code: ");
-    scanf("%s", buffer);
+
+    if (scanf("%49s", buffer) != 1)
+    {
+        return 1;
+    }
 
     if (verify(buffer))
     {
