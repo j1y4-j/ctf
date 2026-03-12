@@ -22,7 +22,7 @@ int verify(char *input)
 void reveal()
 {
     FILE *fp;
-    int data[7];
+    int data[9];
     int key = 7;
 
     fp = fopen("flag.enc", "r");
@@ -33,14 +33,14 @@ void reveal()
         return;
     }
 
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < 9; i++)
         fscanf(fp, "%d", &data[i]);
 
     fclose(fp);
 
     printf("Location unlocked: ");
 
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < 9; i++)
         printf("%c", data[i] ^ key);
 
     printf("\n");
